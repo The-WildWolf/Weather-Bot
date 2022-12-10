@@ -21,10 +21,7 @@ class WeatherDownload:
         print(f"description: {data['weather'][0]['description']}")
 
 
-
-
 c = WeatherDownload()
 f = c.download_openweather_api("lodz")
 print(f)
 x = c.get_weather_description()
-
