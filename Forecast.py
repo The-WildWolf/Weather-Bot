@@ -15,14 +15,7 @@ class Forecast:
     with open('dane.json', 'w') as x:
         json.dump(data, x)
 
-    filename = 'values.json'
     for value in data["list"]:
-
-        with open(filename, 'w') as f:
-            json.dump(value, f)
-        print(f"{value['main']['temp']}")
+        print(f"\n{value['main']['temp']}")
         print(f"{value['weather'][0]['id']}")
         print(f"{value['weather'][0]['description']}")
-
-
-
