@@ -14,20 +14,24 @@ class Forecast:
     with open('dane.json', 'w') as x:
         json.dump(data, x)
 
-    def forecast_print(self):
-        filename = "forecast_data.csv"
-        with open(filename, 'w') as file_object:
-            for value in Forecast.data["list"]:
-                # print(f"\n{value['main']['temp']}")
-                # print(f"{value['weather'][0]['id']}")
-                # print(f"{value['weather'][0]['description']}")
-                # file_object.write(f"\n{value['main']['temp']}")
-                # file_object.write(f"\n\tDescription_id: {value['weather'][0]['id']}")
-                # file_object.write(f"\tDescription:{value['weather'][0]['description']}")
-                file_object.write(f"\n[Temp: {value['main']['temp']}, Description_id: {value['weather'][0]['id']},"
-                                  f"Description:{value['weather'][0]['description']}]")
+    def forecast_extracted_data(self):
+        with open('dane.json', 'r') as f:
+            data = json.load(f)
 
-#  czy można z ww/ stworzyć słownik? żeby def robiła return x.dict gdzie klucz to temp a wartość to liczba itd?
+        forecast_data = []
+
+        for data in data['list']:
+            date = data['dt_txt']
+            temperature = data['main']['temp']
+            description = data['weather'][0]['description']
+            descr_id = data['weather'][0]['id']
+
+            forecast_data.append({'date': date, 'temperature': temperature, 'description': description,
+                                  'descr_id': descr_id})
+
+        with open('forecast_data.json', 'w') as file:
+            json.dump(forecast_data, file)
+
 
 f = Forecast()
-fp = f.forecast_print()
+fp = f.forecast_extracted_data()
